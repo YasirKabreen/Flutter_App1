@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'loginhome.dart';
+import 'Home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,19 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App4',
+      title: 'app2',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        buttonTheme: ButtonTheme.of(context).copyWith(
-          buttonColor: Colors.blueGrey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.all(16),
-          textTheme: ButtonTextTheme.primary,
-        ),
+        primarySwatch: Colors.blue,
       ),
-      home: LoginHome(),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }
