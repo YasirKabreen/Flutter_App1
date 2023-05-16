@@ -1,0 +1,37 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'loginhome.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'App4',
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+        buttonTheme: ButtonTheme.of(context).copyWith(
+          buttonColor: Colors.blueGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: EdgeInsets.all(16),
+          textTheme: ButtonTextTheme.primary,
+        ),
+      ),
+      home: LoginHome(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
