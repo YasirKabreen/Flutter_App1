@@ -1,0 +1,101 @@
+import 'package:app3/textfield.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class homy extends StatefulWidget {
+  const homy({Key? key}) : super(key: key);
+
+  @override
+  State<homy> createState() => _homyState();
+}
+
+class _homyState extends State<homy> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.amber,
+      body: Center(
+        child: Card(
+            margin: EdgeInsets.all(12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Textfield(),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          final Map<String, dynamic> yas = {
+                            'name': 'yasir',
+                            'age': 24,
+                            'phone': "387984329"
+                          };
+                          print('created');
+                          CollectionReference docc =
+                              FirebaseFirestore.instance.collection('yasir');
+                          docc.doc('12').set(yas);
+                        },
+                        child: Text(
+                          'create ',
+                          style: TextStyle(fontSize: 24),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          print('updated');
+                          CollectionReference docc =
+                              FirebaseFirestore.instance.collection('yasir');
+                          docc.doc('12').update({'name': 'I did it by myself'});
+                        },
+                        child: Text(
+                          'update',
+                          style: TextStyle(fontSize: 24),
+                        )),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          print('deleted');
+                          CollectionReference docc =
+                              FirebaseFirestore.instance.collection('yasir');
+                          docc.doc('12').delete();
+                        },
+                        child: Text(
+                          '  delet  ',
+                          style: TextStyle(fontSize: 24),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          print('readed');
+                          DocumentReference docc = FirebaseFirestore.instance
+                              .collection('yasir')
+                              .doc('12');
+                          docc.get().then(
+                                (datasnapshot) => print(datasnapshot.data()),
+                              );
+                        },
+                        child: Text(
+                          '  read   ',
+                          style: TextStyle(fontSize: 24),
+                        )),
+                  ],
+                )
+              ],
+            )),
+      ),
+    );
+  }
+}

@@ -1,0 +1,142 @@
+import 'package:app3/hom.dart';
+import 'package:app3/sign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var auth = FirebaseAuth.instance;
+  var username = '';
+  var email = '';
+  var password = '';
+  var authresult;
+
+  final formKey = GlobalKey<FormState>();
+
+  void onsumit() async {
+    var isvalid = formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (isvalid) {
+      formKey.currentState!.save();
+      authresult = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: Card(
+          elevation: 20,
+          margin: EdgeInsets.all(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    onSaved: (newValue) => username = newValue!,
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 6) {
+                        return 'enter valid user name';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      label: Text('User Name'),
+                    ),
+                  ),
+                  TextFormField(
+                    onSaved: (newValue) => email = newValue!,
+                    validator: (value) {
+                      if (value!.isEmpty || !value.contains('@')) {
+                        return 'Please enter a valid Email address';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      label: Text('Email '),
+                    ),
+                  ),
+                  TextFormField(
+                    onSaved: (newValue) => password = newValue!,
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 7) {
+                        return 'enter valid Password';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      label: Text('Password'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  RaisedButton(
+                    onPressed: onsumit,
+                    child: const Text(
+                      'Login',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => homy()));
+                    },
+                    child: const Text(
+                      'Create new Account',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Sign(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple[600],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

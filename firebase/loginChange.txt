@@ -1,0 +1,33 @@
+import 'dart:math';
+
+import 'package:app3/mainhome.dart';
+import 'package:app3/sign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class Loginhome extends StatefulWidget {
+  const Loginhome({Key? key}) : super(key: key);
+
+  @override
+  State<Loginhome> createState() => _LoginhomeState();
+}
+
+class _LoginhomeState extends State<Loginhome> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MainHome();
+          } else {
+            return Sign();
+          }
+        },
+      ),
+    );
+  }
+}
