@@ -1,0 +1,108 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+import 'screens/account.dart';
+import 'screens/home.dart';
+import 'screens/message.dart';
+import 'screens/settings.dart';
+import 'task.dart';
+import 'task1.dart';
+
+class MyHome extends StatefulWidget {
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  int ix = 0;
+
+  void methodIdex(int index) {
+    setState(() {
+      ix = index;
+    });
+  }
+
+  final List pages = [
+    Home(),
+    Account(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Icon(Icons.search),
+          Icon(Icons.share),
+        ],
+        backgroundColor: Theme.of(context).primaryColorDark,
+        title: Text('KabreeN'),
+      ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).primaryColorDark,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          elevation: 10,
+          onTap: methodIdex,
+          currentIndex: ix,
+          backgroundColor: Theme.of(context).primaryColorLight,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Setting',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.message),
+              label: 'Message',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.video_call),
+              label: 'Videos',
+            ),
+          ]),
+      body: pages[ix],
+    );
+  }
+}
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+import '../task.dart';
+import '../task1.dart';
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white10,
+      child: Column(
+        children: [
+          Expanded(
+              flex: 1,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return Task1();
+                },
+              )),
+          Expanded(
+              flex: 4,
+              child: ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Task();
+                  })),
+        ],
+      ),
+    );
+  }
+}
+

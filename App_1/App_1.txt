@@ -1,0 +1,193 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/ListClass.dart';
+
+class MyHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final List<Task> item = [
+      Task(
+        name: 'مشتريات من الروابي',
+        amount: 44.92,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح المكيف',
+        amount: 50.69,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: ' الموية الاسبوعية',
+        amount: 64.80,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح السخان',
+        amount: 78.95,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'فاتورة النت',
+        amount: 15.89,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'مشتريات من الروابي',
+        amount: 44.92,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح المكيف',
+        amount: 50.69,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: ' الموية الاسبوعية',
+        amount: 64.80,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح السخان',
+        amount: 78.95,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'فاتورة النت',
+        amount: 15.89,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'مشتريات من الروابي',
+        amount: 44.92,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح المكيف',
+        amount: 50.69,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: ' الموية الاسبوعية',
+        amount: 64.80,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'تصليح السخان',
+        amount: 78.95,
+        date: DateTime.now(),
+      ),
+      Task(
+        name: 'فاتورة النت',
+        amount: 15.89,
+        date: DateTime.now(),
+      )
+    ];
+    String titleinput = '';
+    String amountinput = '';
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('The Test App'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'This the List of Tasks',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorDark),
+            ),
+          ),
+          Card(
+            elevation: 10,
+            child: Container(
+              margin: EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(labelText: 'The Title'),
+                    onChanged: (value) => titleinput = value,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'The Amount'),
+                    onChanged: (value) => amountinput = value,
+                  ),
+                  Container(
+                    child: ElevatedButton(
+                      child: Text('Add'),
+                      onPressed: () {
+                        print(titleinput);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Card(
+            elevation: 10,
+            child: Container(
+              height: 430,
+              child: ListView(
+                children: [
+                  Column(
+                    children: item.map((tx) {
+                      return Card(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  tx.name,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 13, 13, 13),
+                                  ),
+                                ),
+                                Text(
+                                  tx.date.toString(),
+                                )
+                              ],
+                            ),
+                            Container(
+                              height: 40,
+                              width: 80,
+                              padding: EdgeInsets.all(10),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2,
+                                    color: Theme.of(context).primaryColorDark),
+                              ),
+                              child: Text(
+                                tx.amount.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColorDark),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
